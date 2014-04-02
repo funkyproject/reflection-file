@@ -93,9 +93,11 @@ class ReflectionFile extends \ReflectionClass
     private function findNamespace($i, $tokens, $namespace)
     {
         for ($j = $i + 1; $j < count($tokens); $j++) {
-            if ($tokens[$j][0] === T_STRING) {
+            if ($this->tokenIsAString($tokens, $j)) {
                 $namespace .= '\\' . $tokens[$j][1];
-            } elseif ($tokens[$j] === '{' || $tokens[$j] === ';') {
+            }
+
+            if ($this->endTokenForNamespace($tokens, $j)) {
                 break;
             }
         }
@@ -119,5 +121,25 @@ class ReflectionFile extends \ReflectionClass
         }
 
         return $class;
+    }
+
+    /**
+     * @param $tokens
+     * @param $j
+     * @return bool
+     */
+    private function endTokenForNamespace($tokens, $j)
+    {
+        return $tokens[$j] === '{' || $tokens[$j] === ';';
+    }
+
+    /**
+     * @param $tokens
+     * @param $j
+     * @return bool
+     */
+    private function tokenIsAString($tokens, $j)
+    {
+        return $tokens[$j][0] === T_STRING;
     }
 }
