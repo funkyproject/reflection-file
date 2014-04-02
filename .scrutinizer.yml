@@ -49,3 +49,7 @@ tools:
             - vendor/
     php_pdepend: true
     php_sim: true
+    before_commands:
+        - 'curl -sS https://getcomposer.org/installer | php'
+        - 'php composer.phar self-update'
+        - 'php composer.phar install'
