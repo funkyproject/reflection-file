@@ -1,2 +1,2 @@
 <?php
-echo "class Missing extends Funny {}";
+echo "class Missing extends Funny";
