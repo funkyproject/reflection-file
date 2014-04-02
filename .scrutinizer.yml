@@ -41,15 +41,13 @@ tools:
             standard: PSR2
     sensiolabs_security_checker: true
     php_code_coverage: true
-    php_cpd:
-        excluded_dirs:
-            - vendor/
+    php_cpd: false
     php_loc:
         excluded_dirs:
             - vendor/
     php_pdepend: true
     php_sim: true
-    before_commands:
-        - 'curl -sS https://getcomposer.org/installer | php'
-        - 'php composer.phar self-update'
-        - 'php composer.phar install'
+before_commands:
+    - 'curl -sS https://getcomposer.org/installer | php'
+    - 'php composer.phar self-update'
+    - 'php composer.phar install'
