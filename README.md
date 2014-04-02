@@ -33,3 +33,4 @@ If file is not a class, ReflectionFile will throw a `ReflectionException`
      $ cd path/to/ReflectionFile/
      $ composer.phar install
      $ phpunit
+
