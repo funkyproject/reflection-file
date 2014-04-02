@@ -32,6 +32,15 @@ class ReflectionFileTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('FakeTwo', $reflectionFile->getName());
     }
 
+    public function testReflectionWithFileWhitNamespaceEmbeddedReturnAReflectionClassObject()
+    {
+        require __DIR__.'/Fake/FakeThree.php';
+
+        $reflectionFile = new ReflectionFile(__DIR__.'/Fake/FakeThree.php');
+
+        $this->assertEquals('Foo\FakeThree', $reflectionFile->getName());
+    }
+
     /**
      * @expectedException \ReflectionException
      */
@@ -45,7 +54,7 @@ class ReflectionFileTest extends \PHPUnit_Framework_TestCase
      */
     public function testReflectionWithoutFileThrowAnException()
     {
-        new ReflectionFile(__DIR__.'/Fake/FakeThree.php');
+        new ReflectionFile(__DIR__.'/Fake/FakeFour.php');
     }
 }
  

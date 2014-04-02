@@ -39,7 +39,9 @@ class ReflectionFile extends \ReflectionClass
 
         $class = $namespace = $buffer = '';
         $i     = 0;
+
         while (!$class) {
+
             if (feof($fp)) {
                 break;
             }
