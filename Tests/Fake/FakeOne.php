@@ -5,14 +5,13 @@
  *
  * @category    PhpStorm
  * @author     aurelien
- * @copyright  2014 Efidev 
+ * @copyright  2014 Efidev
  * @version    CVS: Id:$
  */
 
 namespace Funkyproject\Tests\Fake;
 
-
-class FakeOne 
+class FakeOne
 {
 
-} 
+}

@@ -39,23 +39,27 @@ class ReflectionFile extends \ReflectionClass
         $fp = fopen($file, 'r');
 
         $class = $namespace = $buffer = '';
-        $i = 0;
+        $i     = 0;
         while (!$class) {
-            if (feof($fp)) break;
+            if (feof($fp)) {
+                break;
+            }
 
             $buffer .= fread($fp, 512);
             $tokens = token_get_all($buffer);
 
-            if (strpos($buffer, '{') === false) continue;
+            if (strpos($buffer, '{') === false) {
+                continue;
+            }
 
             list($namespace, $class) = $this->loopToken($i, $tokens, $namespace);
         }
 
-        if($namespace == '') {
+        if ($namespace == '') {
             return $class;
         }
 
-        return sprintf("%s\\%s",$namespace, $class);
+        return sprintf("%s\\%s", $namespace, $class);
     }
 
     /**
@@ -92,7 +96,7 @@ class ReflectionFile extends \ReflectionClass
         for ($j = $i + 1; $j < count($tokens); $j++) {
             if ($tokens[$j][0] === T_STRING) {
                 $namespace .= '\\' . $tokens[$j][1];
-            } else if ($tokens[$j] === '{' || $tokens[$j] === ';') {
+            } elseif ($tokens[$j] === '{' || $tokens[$j] === ';') {
                 break;
             }
         }
@@ -117,4 +121,4 @@ class ReflectionFile extends \ReflectionClass
 
         return $class;
     }
-} 
+}

@@ -14,5 +14,4 @@ namespace Funkyproject\Exceptions;
 
 class FileNotFoundException extends \InvalidArgumentException
 {
-
-} 
+}
