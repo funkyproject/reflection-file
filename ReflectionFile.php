@@ -48,25 +48,7 @@ class ReflectionFile extends \ReflectionClass
 
             if (strpos($buffer, '{') === false) continue;
 
-            for (;$i<count($tokens);$i++) {
-                if ($tokens[$i][0] === T_NAMESPACE) {
-                    for ($j=$i+1;$j<count($tokens); $j++) {
-                        if ($tokens[$j][0] === T_STRING) {
-                            $namespace .= '\\'.$tokens[$j][1];
-                        } else if ($tokens[$j] === '{' || $tokens[$j] === ';') {
-                            break;
-                        }
-                    }
-                }
-
-                if ($tokens[$i][0] === T_CLASS) {
-                    for ($j=$i+1;$j<count($tokens);$j++) {
-                        if ($tokens[$j] === '{') {
-                            $class = $tokens[$i+2][1];
-                        }
-                    }
-                }
-            }
+            list($namespace, $class) = $this->loopToken($i, $tokens, $namespace);
         }
 
         if($namespace == '') {
@@ -74,5 +56,65 @@ class ReflectionFile extends \ReflectionClass
         }
 
         return sprintf("%s\\%s",$namespace, $class);
+    }
+
+    /**
+     * @param $i
+     * @param $tokens
+     * @param $namespace
+     * @return array
+     */
+    private function loopToken($i, $tokens, $namespace)
+    {
+        $class = '';
+
+        for (; $i < count($tokens); $i++) {
+            if ($tokens[$i][0] === T_NAMESPACE) {
+                $namespace = $this->findNamespace($i, $tokens, $namespace);
+            }
+
+            if ($tokens[$i][0] === T_CLASS) {
+                $class = $this->findClassName($i, $tokens);
+            }
+        }
+
+        return array($namespace, $class);
+    }
+
+    /**
+     * @param $i
+     * @param $tokens
+     * @param $namespace
+     * @return array
+     */
+    private function findNamespace($i, $tokens, $namespace)
+    {
+        for ($j = $i + 1; $j < count($tokens); $j++) {
+            if ($tokens[$j][0] === T_STRING) {
+                $namespace .= '\\' . $tokens[$j][1];
+            } else if ($tokens[$j] === '{' || $tokens[$j] === ';') {
+                break;
+            }
+        }
+
+        return $namespace;
+    }
+
+    /**
+     * @param $i
+     * @param $tokens
+     * @return mixed
+     */
+    private function findClassName($i, $tokens)
+    {
+        $class = '';
+
+        for ($j = $i + 1; $j < count($tokens); $j++) {
+            if ($tokens[$j] === '{') {
+                $class = $tokens[$i + 2][1];
+            }
+        }
+
+        return $class;
     }
 } 
