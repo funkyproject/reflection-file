@@ -1,7 +1,10 @@
+imports:
+  - php
+
 filter:
     excluded_paths:
-        - vendor
-        - Tests
+        - vendor/*
+        - Tests/*
 tools:
     php_mess_detector: true
     php_cs_fixer:
