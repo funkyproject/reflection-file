@@ -11,7 +11,6 @@
 
 namespace Funkyproject;
 
-
 use Funkyproject\Exceptions\FileNotFoundException;
 
 class ReflectionFile extends \ReflectionClass
