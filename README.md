@@ -6,6 +6,11 @@ Use `Attraktiv\ReflectionFile` to retrieve a lot of information about class into
 
 ## Installation
 
+You can install this lib using composer
+
+    composer require funkyproject/reflection-file
+
+or add the package to your ``composer.json`` file directly
 
 ## Usage
 
@@ -20,8 +25,7 @@ More information about methods are available on http://www.php.net/manual/en/cla
 If file not found, `ReflectionFile` will throw a `FileNotFoundException`
 If file is not a class, ReflectionFile will throw a `ReflectionException`
 
- Tests
- -----
+## Tests
 
  You can run the unit tests with the following command:
 
