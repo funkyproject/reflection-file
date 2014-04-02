@@ -1,0 +1,12 @@
+{
+    "name": "funkyproject/reflection-file",
+    "require-dev": {
+        "phpunit/phpunit": "4.0.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Funkyproject": ""
+        }
+    },
+    "target-dir": "Funkyproject"
+}
